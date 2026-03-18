@@ -9,343 +9,251 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
-    background: #fef6f0;
+    background: #f5f5f7;
     min-height: 100vh;
     color: #333;
-    overflow-x: hidden;
   }
 
-  .blob {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.3;
-    z-index: 0;
-    pointer-events: none;
-    animation: blobFloat 8s ease-in-out infinite;
-  }
-  .blob-1 { width: 300px; height: 300px; background: #ff9a9e; top: -50px; left: -50px; }
-  .blob-2 { width: 400px; height: 400px; background: #a18cd1; top: 30%; right: -100px; animation-delay: 2s; }
-  .blob-3 { width: 350px; height: 350px; background: #fad0c4; bottom: 10%; left: 10%; animation-delay: 4s; }
-  .blob-4 { width: 250px; height: 250px; background: #84fab0; top: 60%; left: 50%; animation-delay: 3s; }
-  @keyframes blobFloat {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(30px, -20px) scale(1.1); }
-  }
-
+  /* Header */
   .header {
-    position: relative;
-    z-index: 10;
-    background: linear-gradient(135deg, #ff6b9d, #c44eff, #6e8efb);
-    padding: 40px 20px 50px;
-    text-align: center;
-    border-radius: 0 0 40px 40px;
-    box-shadow: 0 10px 40px rgba(196, 78, 255, 0.2);
-  }
-  .header h1 { font-size: 30px; font-weight: 900; color: #fff; margin-bottom: 8px; letter-spacing: 2px; text-shadow: 0 2px 10px rgba(0,0,0,0.15); }
-  .header .subtitle { font-size: 13px; color: rgba(255,255,255,0.85); margin-bottom: 14px; }
-  .header .my-location { display: inline-flex; align-items: center; gap: 6px; padding: 8px 20px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); border-radius: 25px; font-size: 13px; color: #fff; font-weight: 500; }
-
-  .stats-bar { position: relative; z-index: 10; display: flex; justify-content: center; gap: 16px; padding: 0 20px; margin-top: -28px; flex-wrap: wrap; }
-  .stat-item { text-align: center; background: #fff; border-radius: 20px; padding: 18px 24px; min-width: 100px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); transition: transform 0.3s; }
-  .stat-item:hover { transform: translateY(-3px); }
-  .stat-item .num { font-size: 32px; font-weight: 900; background: linear-gradient(135deg, #ff6b9d, #c44eff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .stat-item .label { font-size: 12px; color: #999; margin-top: 4px; font-weight: 500; }
-
-  .filter-bar { position: relative; z-index: 10; display: flex; justify-content: center; gap: 10px; padding: 24px 20px 10px; flex-wrap: wrap; }
-  .filter-btn { padding: 10px 22px; border: none; border-radius: 25px; background: #fff; color: #888; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.3s; box-shadow: 0 2px 10px rgba(0,0,0,0.04); font-family: inherit; }
-  .filter-btn:hover { transform: scale(1.05); color: #c44eff; }
-  .filter-btn.active { background: linear-gradient(135deg, #ff6b9d, #c44eff); color: #fff; box-shadow: 0 4px 15px rgba(196,78,255,0.3); transform: scale(1.05); }
-
-  .container { position: relative; z-index: 10; max-width: 1200px; margin: 0 auto; padding: 0 20px 40px; }
-
-  .section-header { margin: 30px 0 15px; text-align: center; }
-  .section-header h2 { font-size: 22px; font-weight: 900; color: #333; display: inline-flex; align-items: center; gap: 8px; }
-  .section-header p { font-size: 13px; color: #aaa; margin-top: 6px; }
-
-  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
-
-  .card {
     background: #fff;
-    border-radius: 24px;
-    padding: 24px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-    border: 1px solid rgba(0,0,0,0.04);
-    cursor: pointer;
-  }
-  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #ff6b9d, #c44eff, #6e8efb, #84fab0); opacity: 0; transition: opacity 0.3s; }
-  .card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(196,78,255,0.12); }
-  .card:hover::before { opacity: 1; }
-
-  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-  .card-rank { width: 36px; height: 36px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 15px; flex-shrink: 0; }
-  .rank-gold { background: linear-gradient(135deg, #FFD700, #FFA500); color: #fff; box-shadow: 0 3px 10px rgba(255,165,0,0.3); }
-  .rank-silver { background: linear-gradient(135deg, #C0C0C0, #A9A9A9); color: #fff; }
-  .rank-bronze { background: linear-gradient(135deg, #e17055, #d63031); color: #fff; }
-  .rank-normal { background: #f0f0f5; color: #999; }
-
-  .card-name { font-size: 18px; font-weight: 700; color: #333; flex: 1; margin: 0 12px; }
-  .card-distance { background: linear-gradient(135deg, #e0f7fa, #e8f5e9); padding: 5px 14px; border-radius: 14px; font-size: 13px; color: #00bfa5; white-space: nowrap; font-weight: 700; }
-  .card-address { font-size: 13px; color: #aaa; margin-bottom: 14px; padding-left: 22px; position: relative; }
-  .card-address::before { content: '\1F4CD'; position: absolute; left: 0; top: -1px; font-size: 14px; }
-
-  .card-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
-  .tag { padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; }
-  .tag-type { background: #f3eeff; color: #8b5cf6; }
-  .tag-density { background: #fff8e1; color: #f59e0b; }
-  .tag-mx { background: #ffe8ee; color: #ec4899; }
-  .tag-score { background: #e8faf3; color: #10b981; }
-  .tag-warning { background: #fff3e0; color: #f97316; }
-
-  .card-reason { font-size: 13px; line-height: 1.9; color: #777; margin-bottom: 14px; }
-
-  .card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 14px; border-top: 1px dashed #f0f0f0; }
-  .card-stars { color: #f59e0b; font-size: 14px; letter-spacing: 2px; }
-  .card-level { font-size: 12px; padding: 4px 14px; border-radius: 12px; font-weight: 700; }
-  .level-high { background: linear-gradient(135deg, #d4fc79, #96e6a1); color: #166534; }
-  .level-medium { background: linear-gradient(135deg, #ffecd2, #fcb69f); color: #9a3412; }
-  .level-low { background: linear-gradient(135deg, #fecaca, #fda4af); color: #991b1b; }
-
-  .card-detail-hint {
+    padding: 32px 20px 28px;
     text-align: center;
-    margin-top: 10px;
-    font-size: 12px;
-    color: #c4b5fd;
-    font-weight: 600;
-    transition: color 0.3s;
+    border-bottom: 1px solid #eee;
   }
-  .card:hover .card-detail-hint { color: #8b5cf6; }
+  .header h1 { font-size: 26px; font-weight: 900; color: #1a1a1a; margin-bottom: 6px; }
+  .header .subtitle { font-size: 13px; color: #999; margin-bottom: 12px; }
+  .header .my-location {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 16px; background: #f0f7ff; border-radius: 20px;
+    font-size: 12px; color: #4a90d9; font-weight: 500;
+  }
+
+  /* Search Bar */
+  .search-bar {
+    max-width: 600px; margin: 20px auto 0; padding: 0 20px;
+    display: flex; gap: 10px;
+  }
+  .search-input {
+    flex: 1; padding: 12px 18px; border: 1px solid #e0e0e0; border-radius: 12px;
+    font-size: 14px; font-family: inherit; background: #fff; outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-input:focus { border-color: #4a90d9; }
+  .search-input::placeholder { color: #bbb; }
+  .search-btn {
+    padding: 12px 24px; background: #4a90d9; color: #fff; border: none;
+    border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer;
+    font-family: inherit; transition: background 0.2s; white-space: nowrap;
+  }
+  .search-btn:hover { background: #3a7bc8; }
+
+  /* Stats */
+  .stats-bar {
+    display: flex; justify-content: center; gap: 12px; padding: 20px 20px 0; flex-wrap: wrap;
+  }
+  .stat-item {
+    text-align: center; background: #fff; border-radius: 14px;
+    padding: 14px 20px; min-width: 90px; border: 1px solid #f0f0f0;
+  }
+  .stat-item .num { font-size: 28px; font-weight: 900; color: #4a90d9; }
+  .stat-item .label { font-size: 11px; color: #999; margin-top: 2px; font-weight: 500; }
+
+  /* Filter */
+  .filter-bar {
+    display: flex; justify-content: center; gap: 8px;
+    padding: 20px 20px 10px; flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 8px 18px; border: 1px solid #e0e0e0; border-radius: 20px;
+    background: #fff; color: #666; cursor: pointer; font-size: 13px;
+    font-weight: 500; transition: all 0.2s; font-family: inherit;
+  }
+  .filter-btn:hover { border-color: #4a90d9; color: #4a90d9; }
+  .filter-btn.active { background: #4a90d9; color: #fff; border-color: #4a90d9; }
+
+  /* Container */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 30px; }
+
+  .section-header { margin: 28px 0 14px; }
+  .section-header h2 { font-size: 20px; font-weight: 800; color: #1a1a1a; }
+  .section-header p { font-size: 12px; color: #aaa; margin-top: 4px; }
+
+  /* Card Grid */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 16px; }
+
+  /* Card */
+  .card {
+    background: #fff; border-radius: 16px; padding: 20px;
+    border: 1px solid #f0f0f0; transition: box-shadow 0.2s, transform 0.2s;
+    position: relative; cursor: pointer;
+  }
+  .card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .card-rank {
+    width: 32px; height: 32px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px; flex-shrink: 0;
+  }
+  .rank-gold { background: #fff3cd; color: #b8860b; }
+  .rank-silver { background: #e9ecef; color: #6c757d; }
+  .rank-bronze { background: #fde2e2; color: #c0392b; }
+  .rank-normal { background: #f5f5f5; color: #999; }
+
+  .card-name { font-size: 17px; font-weight: 700; color: #1a1a1a; flex: 1; margin: 0 10px; }
+  .card-distance {
+    padding: 4px 12px; border-radius: 10px; font-size: 12px;
+    color: #2e7d32; background: #e8f5e9; font-weight: 600; white-space: nowrap;
+  }
+  .card-address { font-size: 12px; color: #aaa; margin-bottom: 12px; padding-left: 18px; position: relative; }
+  .card-address::before { content: '\1F4CD'; position: absolute; left: 0; top: -1px; font-size: 12px; }
+
+  .card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .tag { padding: 3px 10px; border-radius: 8px; font-size: 11px; font-weight: 600; }
+  .tag-type { background: #f0ecff; color: #6c5ce7; }
+  .tag-density { background: #fff8e1; color: #e6a817; }
+  .tag-mx { background: #fce4ec; color: #d81b60; }
+  .tag-score { background: #e8f5e9; color: #2e7d32; }
+  .tag-warning { background: #fff3e0; color: #e65100; }
+
+  .card-reason { font-size: 13px; line-height: 1.8; color: #777; margin-bottom: 12px; }
+
+  .card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid #f5f5f5; }
+  .card-stars { color: #e6a817; font-size: 13px; letter-spacing: 1px; }
+  .card-level { font-size: 11px; padding: 4px 12px; border-radius: 8px; font-weight: 700; }
+  .level-high { background: #e8f5e9; color: #2e7d32; }
+  .level-medium { background: #fff3e0; color: #e65100; }
+  .level-low { background: #fce4ec; color: #c62828; }
+
+  .card-actions { display: flex; gap: 8px; margin-top: 12px; }
+  .btn-detail, .btn-map {
+    flex: 1; padding: 8px 0; border-radius: 10px; font-size: 12px;
+    font-weight: 600; cursor: pointer; text-align: center;
+    font-family: inherit; transition: all 0.2s; border: none;
+  }
+  .btn-detail { background: #f5f5f7; color: #666; }
+  .btn-detail:hover { background: #eee; }
+  .btn-map { background: #e8f5e9; color: #2e7d32; }
+  .btn-map:hover { background: #c8e6c9; }
+
+  .badge-not-rec {
+    position: absolute; top: 12px; right: 12px;
+    background: #fce4ec; color: #c62828;
+    padding: 3px 10px; border-radius: 8px; font-size: 11px; font-weight: 700;
+  }
+
+  /* Table */
+  .table-wrapper { overflow-x: auto; margin: 16px 0; border-radius: 14px; background: #fff; border: 1px solid #f0f0f0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #fafafa; padding: 14px 16px; text-align: left; color: #666; font-weight: 700; white-space: nowrap; }
+  td { padding: 12px 16px; border-top: 1px solid #f5f5f5; color: #555; }
+  tr:hover td { background: #fafbff; }
+  tr { cursor: pointer; }
+
+  /* Tips */
+  .tips-section { max-width: 1200px; margin: 0 auto; padding: 10px 20px 50px; }
+  .tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 12px; }
+  .tip-card { background: #fff; border-radius: 14px; padding: 20px; border: 1px solid #f0f0f0; }
+  .tip-card h3 { font-size: 14px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+  .tip-card p { font-size: 13px; line-height: 1.8; color: #888; }
+
+  .footer { text-align: center; padding: 16px; color: #ccc; font-size: 11px; }
 
   /* Modal */
   .modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(8px);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    animation: fadeIn 0.25s ease;
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4); z-index: 1000;
+    justify-content: center; align-items: center; padding: 20px;
   }
   .modal-overlay.active { display: flex; }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
   .modal {
-    background: #fff;
-    border-radius: 28px;
-    max-width: 640px;
-    width: 100%;
-    max-height: 85vh;
-    overflow-y: auto;
-    position: relative;
-    animation: slideUp 0.35s cubic-bezier(0.34,1.56,0.64,1);
-    box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+    background: #fff; border-radius: 20px; max-width: 600px; width: 100%;
+    max-height: 85vh; overflow-y: auto; position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    animation: modalIn 0.25s ease;
   }
-  @keyframes slideUp { from { opacity: 0; transform: translateY(40px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  @keyframes modalIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
   .modal-header {
-    position: sticky;
-    top: 0;
-    background: linear-gradient(135deg, #ff6b9d, #c44eff, #6e8efb);
-    padding: 28px 28px 22px;
-    border-radius: 28px 28px 0 0;
-    z-index: 2;
+    position: sticky; top: 0; background: #fff;
+    padding: 24px 24px 16px; border-bottom: 1px solid #f0f0f0;
+    border-radius: 20px 20px 0 0; z-index: 2;
   }
   .modal-close {
-    position: absolute;
-    top: 16px; right: 16px;
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-    border: none;
-    color: #fff;
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s;
+    position: absolute; top: 16px; right: 16px;
+    width: 32px; height: 32px; border-radius: 50%; background: #f5f5f5;
+    border: none; color: #999; font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
   }
-  .modal-close:hover { background: rgba(255,255,255,0.35); }
-  .modal-title { font-size: 24px; font-weight: 900; color: #fff; margin-bottom: 6px; }
-  .modal-subtitle { font-size: 13px; color: rgba(255,255,255,0.8); }
-  .modal-meta {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 14px;
-  }
-  .modal-meta-item {
-    padding: 5px 14px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 14px;
-    font-size: 12px;
-    color: #fff;
-    font-weight: 600;
-    backdrop-filter: blur(4px);
-  }
+  .modal-close:hover { background: #eee; color: #333; }
+  .modal-title { font-size: 22px; font-weight: 900; color: #1a1a1a; margin-bottom: 4px; padding-right: 40px; }
+  .modal-subtitle { font-size: 13px; color: #999; }
+  .modal-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .modal-meta-item { padding: 4px 12px; background: #f5f5f7; border-radius: 8px; font-size: 11px; color: #666; font-weight: 600; }
 
-  .modal-body { padding: 28px; }
+  .modal-body { padding: 24px; }
 
-  .detail-section {
-    margin-bottom: 24px;
+  .modal-map-btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; padding: 14px; background: #4a90d9; color: #fff;
+    border: none; border-radius: 14px; font-size: 15px; font-weight: 700;
+    cursor: pointer; font-family: inherit; margin-bottom: 20px; transition: background 0.2s;
   }
+  .modal-map-btn:hover { background: #3a7bc8; }
+
+  .detail-section { margin-bottom: 20px; }
   .detail-section-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #f3eeff;
+    font-size: 14px; font-weight: 700; color: #333; margin-bottom: 8px;
+    padding-bottom: 6px; border-bottom: 1px solid #f0f0f0;
   }
-  .detail-text {
-    font-size: 14px;
-    line-height: 2;
-    color: #666;
-  }
+  .detail-text { font-size: 14px; line-height: 2; color: #666; }
 
-  .detail-info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  .detail-info-item {
-    background: #faf8ff;
-    border-radius: 16px;
-    padding: 16px;
-    text-align: center;
-  }
-  .detail-info-item .info-label {
-    font-size: 11px;
-    color: #aaa;
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-  .detail-info-item .info-value {
-    font-size: 18px;
-    font-weight: 900;
-    background: linear-gradient(135deg, #ff6b9d, #c44eff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+  .detail-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .detail-info-item { background: #fafafa; border-radius: 12px; padding: 14px; text-align: center; }
+  .detail-info-item .info-label { font-size: 11px; color: #aaa; font-weight: 600; margin-bottom: 4px; }
+  .detail-info-item .info-value { font-size: 18px; font-weight: 900; color: #4a90d9; }
 
-  .detail-store-list {
-    list-style: none;
-  }
+  .detail-store-list { list-style: none; }
   .detail-store-list li {
-    padding: 12px 16px;
-    background: #fef2f2;
-    border-radius: 14px;
-    margin-bottom: 8px;
-    font-size: 13px;
-    color: #666;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 10px 14px; background: #fafafa; border-radius: 10px; margin-bottom: 6px;
+    font-size: 13px; color: #666; display: flex; justify-content: space-between; align-items: center;
   }
   .detail-store-list li .store-name { font-weight: 700; color: #333; }
   .detail-store-list li .store-info { font-size: 12px; color: #999; }
 
   .detail-review {
-    background: linear-gradient(135deg, #faf5ff, #fdf2f8);
-    border-radius: 16px;
-    padding: 18px 20px;
-    font-size: 13px;
-    line-height: 1.9;
-    color: #777;
-    position: relative;
-    font-style: italic;
+    background: #fafafa; border-radius: 12px; padding: 16px;
+    font-size: 13px; line-height: 1.8; color: #777; font-style: italic;
   }
-  .detail-review::before {
-    content: '\201C';
-    font-size: 48px;
-    color: #e0d4f5;
-    position: absolute;
-    top: 4px;
-    left: 12px;
-    font-style: normal;
-    line-height: 1;
-  }
-  .detail-review p { padding-left: 28px; }
-
   .detail-warning {
-    background: #fff7ed;
-    border: 1px solid #fed7aa;
-    border-radius: 14px;
-    padding: 14px 18px;
-    font-size: 13px;
-    color: #c2410c;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
+    background: #fff7ed; border: 1px solid #fed7aa; border-radius: 10px;
+    padding: 12px 14px; font-size: 13px; color: #c2410c;
+    display: flex; align-items: flex-start; gap: 8px;
   }
-
-  .detail-level-badge {
-    display: inline-flex;
-    padding: 8px 24px;
-    border-radius: 16px;
-    font-weight: 900;
-    font-size: 16px;
-  }
-
-  /* Tips */
-  .tips-section { position: relative; z-index: 10; max-width: 1200px; margin: 0 auto; padding: 20px 20px 60px; }
-  .tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 16px; }
-  .tip-card { background: #fff; border-radius: 20px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); transition: transform 0.3s; }
-  .tip-card:hover { transform: translateY(-4px); }
-  .tip-card h3 { font-size: 15px; font-weight: 700; color: #333; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-  .tip-card p { font-size: 13px; line-height: 1.9; color: #888; }
-
-  .badge-not-rec { position: absolute; top: 16px; right: 16px; background: linear-gradient(135deg, #fee2e2, #fecaca); color: #dc2626; padding: 4px 12px; border-radius: 10px; font-size: 11px; font-weight: 700; }
-
-  .table-wrapper { overflow-x: auto; margin: 20px 0; border-radius: 20px; background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th { background: linear-gradient(135deg, #faf5ff, #fdf2f8); padding: 16px; text-align: left; color: #8b5cf6; font-weight: 700; white-space: nowrap; }
-  td { padding: 14px 16px; border-top: 1px solid #f5f5f5; color: #666; }
-  tr:hover td { background: #faf8ff; }
-
-  .footer { position: relative; z-index: 10; text-align: center; padding: 20px; color: #ccc; font-size: 12px; }
 
   @media (max-width: 768px) {
     .header h1 { font-size: 22px; }
     .card-grid { grid-template-columns: 1fr; }
-    .stats-bar { gap: 10px; }
-    .stat-item { min-width: 70px; padding: 14px 16px; }
-    .stat-item .num { font-size: 24px; }
     .tips-grid { grid-template-columns: 1fr; }
-    .modal { max-height: 90vh; border-radius: 20px 20px 0 0; }
-    .modal-header { border-radius: 20px 20px 0 0; }
-    .detail-info-grid { grid-template-columns: 1fr 1fr; }
+    .search-bar { flex-direction: column; }
   }
 
-  .card, .tip-card, .stat-item { animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
-  @keyframes popIn { from { opacity: 0; transform: translateY(30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
-
-  /* Scrollbar */
-  .modal::-webkit-scrollbar { width: 6px; }
-  .modal::-webkit-scrollbar-track { background: transparent; }
-  .modal::-webkit-scrollbar-thumb { background: #e0d4f5; border-radius: 3px; }
+  .modal::-webkit-scrollbar { width: 4px; }
+  .modal::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
 </style>
 </head>
 <body>
 
-<div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
-<div class="blob blob-3"></div>
-<div class="blob blob-4"></div>
-
 <div class="header">
-  <h1>🧋 蜜雪冰城空白市场选址指南</h1>
+  <h1>蜜雪冰城空白市场选址指南</h1>
   <div class="subtitle">基于人流量 · 竞品密度 · 商业潜力综合分析 | 按距离由近到远排序</div>
   <div class="my-location">📌 我的位置：安徽省合肥市创新大道 盛联时代广场A1</div>
+  <div class="search-bar">
+    <input class="search-input" id="searchInput" type="text" placeholder="输入地址，在高德地图上搜索..." onkeydown="if(event.key==='Enter')searchAmap()">
+    <button class="search-btn" onclick="searchAmap()">🔍 高德搜索</button>
+  </div>
 </div>
 
 <div class="stats-bar">
@@ -356,49 +264,49 @@
 </div>
 
 <div class="filter-bar">
-  <button class="filter-btn active" onclick="filterCards('all')">🔥 全部点位</button>
-  <button class="filter-btn" onclick="filterCards('gold')">💎 高潜力空白</button>
-  <button class="filter-btn" onclick="filterCards('campus')">🎓 校园经济带</button>
-  <button class="filter-btn" onclick="filterCards('commercial')">🏬 商圈补充</button>
-  <button class="filter-btn" onclick="filterCards('city')">🌆 全市热门</button>
+  <button class="filter-btn active" onclick="filterCards('all')">全部点位</button>
+  <button class="filter-btn" onclick="filterCards('gold')">高潜力空白</button>
+  <button class="filter-btn" onclick="filterCards('campus')">校园经济带</button>
+  <button class="filter-btn" onclick="filterCards('commercial')">商圈补充</button>
+  <button class="filter-btn" onclick="filterCards('city')">全市热门</button>
 </div>
 
 <div class="container" id="cardContainer"></div>
 
 <div class="container">
   <div class="section-header">
-    <h2>📊 精选地点综合对比</h2>
+    <h2>精选地点综合对比</h2>
     <p>核心指标一览，辅助快速决策</p>
   </div>
   <div class="table-wrapper">
     <table>
-      <thead><tr><th>排名</th><th>名称</th><th>距我距离</th><th>类型</th><th>所在区域</th><th>人口密度</th><th>蜜雪冰城数</th><th>推荐等级</th><th>核心优势</th></tr></thead>
+      <thead><tr><th>排名</th><th>名称</th><th>距离</th><th>类型</th><th>区域</th><th>人口密度</th><th>蜜雪数</th><th>推荐</th><th>核心优势</th></tr></thead>
       <tbody id="tableBody"></tbody>
     </table>
   </div>
 </div>
 
 <div class="tips-section">
-  <div class="section-header" style="margin-bottom:20px;">
-    <h2>💡 选址策略小贴士</h2>
-    <p>来自实战经验的智能建议</p>
+  <div class="section-header" style="margin-bottom:14px;">
+    <h2>选址策略小贴士</h2>
+    <p>来自实战经验的建议</p>
   </div>
   <div class="tips-grid">
-    <div class="tip-card"><h3>🚫 避开红海策略</h3><p>淮河路步行街、罍街虽然热门，但蜜雪冰城过于密集。优先考虑包河万象汇、金大地庐州天地等新兴商圈，竞争压力小且人流量充足。</p></div>
-    <div class="tip-card"><h3>🎒 学校周边最佳时段</h3><p>大学周边最好在开学季和考试周前后布局，学生消费意愿最强。避免暑假期间人流量锐减。</p></div>
-    <div class="tip-card"><h3>🏠 社区选址关键指标</h3><p>选择居民区时重点关注入住率和年龄结构，30岁以下年轻居民占比高的社区更适合蜜雪冰城的消费定位。</p></div>
-    <div class="tip-card"><h3>🔍 竞品密度检测</h3><p>使用高德地图"周边搜索"功能，以候选点为中心搜索2公里范围内的蜜雪冰城数量，低于3家可视为蓝海市场。</p></div>
-    <div class="tip-card"><h3>👀 实地考察建议</h3><p>每个意向点位至少安排半天实地走访，观察早晚高峰人流变化、竞品经营状况和消费者反馈，再做最终决策。</p></div>
-    <div class="tip-card"><h3>⏰ 签约时机</h3><p>现在是3月中旬，正好赶上春季招商旺季，很多商场新开铺位有优惠政策，建议尽快联系物业洽谈租约。</p></div>
+    <div class="tip-card"><h3>避开红海策略</h3><p>淮河路步行街、罍街虽然热门，但蜜雪冰城过于密集。优先考虑包河万象汇、金大地庐州天地等新兴商圈，竞争压力小且人流量充足。</p></div>
+    <div class="tip-card"><h3>学校周边最佳时段</h3><p>大学周边最好在开学季和考试周前后布局，学生消费意愿最强。避免暑假期间人流量锐减。</p></div>
+    <div class="tip-card"><h3>社区选址关键指标</h3><p>选择居民区时重点关注入住率和年龄结构，30岁以下年轻居民占比高的社区更适合蜜雪冰城的消费定位。</p></div>
+    <div class="tip-card"><h3>竞品密度检测</h3><p>使用高德地图"周边搜索"功能，以候选点为中心搜索2公里范围内的蜜雪冰城数量，低于3家可视为蓝海市场。</p></div>
+    <div class="tip-card"><h3>实地考察建议</h3><p>每个意向点位至少安排半天实地走访，观察早晚高峰人流变化、竞品经营状况和消费者反馈，再做最终决策。</p></div>
+    <div class="tip-card"><h3>签约时机</h3><p>现在是3月中旬，正好赶上春季招商旺季，很多商场新开铺位有优惠政策，建议尽快联系物业洽谈租约。</p></div>
   </div>
 </div>
 
-<div class="footer">Made with 🧋 for 蜜雪冰城选址分析</div>
+<div class="footer">蜜雪冰城选址分析</div>
 
 <!-- Modal -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal" id="modalContent" onclick="event.stopPropagation()">
-    <div class="modal-header" id="modalHeader">
+    <div class="modal-header">
       <button class="modal-close" onclick="closeModal()">&times;</button>
       <div class="modal-title" id="modalTitle"></div>
       <div class="modal-subtitle" id="modalAddress"></div>
@@ -411,52 +319,27 @@
 <script>
 const locations = [
   {
-    name: "复兴家园",
-    address: "创新大道",
-    distance: 0.8,
-    type: "居民区",
-    category: "gold",
-    area: "高新区",
-    density: 3,
-    mxCount: "1家",
+    name: "复兴家园", address: "创新大道", distance: 0.8, type: "居民区", category: "gold", area: "高新区",
+    density: 3, mxCount: "1家", level: "high", advantage: "科技园区旁，白领集中",
     reason: "坐拥创新大道C位，紧邻高新企业与科技园区，每天大批白领和工程师穿梭其间，工作日午后或下班时分奶茶是刚需。周边三公里仅有一家蜜雪冰城，且位置偏远，市场空缺明显。",
-    level: "high",
-    advantage: "科技园区旁，白领集中",
     detail: {
       fullReason: "复兴家园坐拥创新大道C位，紧邻高新企业与科技园区，每天都有大批白领和工程师穿梭其间，工作日午后或下班时分，随手一杯奶茶就是刚需。周边三公里仅有一家蜜雪冰城，且位置稍显偏远，市场空缺明显，正是切入良机。",
       extraReason: "地铁口出来走两步就到，早上7点开门迎客，晚上10点还能收摊，上班族赶时间、夜猫子加班归家都能轻松来一杯。周边三公里才两家蜜雪冰城，这家还是开了多年的老店，新店一开立马成neighborhood的新地标。"
     }
   },
   {
-    name: "融创城",
-    address: "经开区翡翠路与石笋路交口以南(安医大西边)",
-    distance: 3.2,
-    type: "居民区",
-    category: "gold",
-    area: "经开区",
-    density: 4,
-    mxCount: "1家",
+    name: "融创城", address: "经开区翡翠路与石笋路交口以南(安医大西边)", distance: 3.2, type: "居民区",
+    category: "gold", area: "经开区", density: 4, mxCount: "1家", level: "high", advantage: "年轻家庭聚集，活跃度高",
     reason: "年轻家庭扎堆，全天候热闹不断，教育资源给力。周边三公里就一家蜜雪冰城，完全不够分，奶茶市场蓝海一片。",
-    level: "high",
-    advantage: "年轻家庭聚集，活跃度高",
     detail: {
       fullReason: "融创城这片儿可是年轻家庭扎堆的地儿，全天候热闹不断，教育资源也给力，生活氛围特别浓。关键是周边三公里就一家蜜雪冰城，藏得还不深，完全不够分，这儿简直就是奶茶市场的一片蓝海，随便找个路口就能圈住一大波顾客。"
     }
   },
   {
-    name: "安徽大学磬苑校区周边",
-    address: "安徽大学磬苑校区",
-    distance: 3.5,
-    type: "学校周边",
-    category: "campus",
-    area: "蜀山区",
-    density: 4,
-    mxCount: "5家",
-    score: 4.2,
+    name: "安徽大学磬苑校区周边", address: "安徽大学磬苑校区", distance: 3.5, type: "学校周边",
+    category: "campus", area: "蜀山区", density: 4, mxCount: "5家", score: 4.2, level: "low",
+    notRecommend: true, advantage: "学生群体大，但竞争激烈",
     reason: "校区周边已有多家蜜雪冰城（最近678米），九龙路店、玫瑰园店、翡翠社区店、工大北门店、世茂翡翠首府店分布较密。不推荐。",
-    level: "low",
-    notRecommend: true,
-    advantage: "学生群体大，但竞争激烈",
     detail: {
       fullReason: "安徽大学磬苑校区周边有多家蜜雪冰城，最近的距离仅678米。为您找到了校区周边3公里范围内的10家蜜雪冰城门店，竞争非常激烈，不建议在此区域新开门店。",
       nearbyStores: [
@@ -466,159 +349,88 @@ const locations = [
         { name: "蜜雪冰城(翡翠社区侯岗小区店)", distance: "1.7公里", rating: "4.2分", avgSpend: "10元" },
         { name: "蜜雪冰城(工大北门店)", distance: "1.8公里", rating: "4.3分", avgSpend: "7元" }
       ],
-      warning: "周边3公里内已有10家蜜雪冰城门店，最近的距离仅678米，市场高度饱和，不建议选址。"
+      warning: "周边3公里内已有10家蜜雪冰城门店，最近的距离仅678米，市场高度饱和。"
     }
   },
   {
-    name: "保利·香槟国际",
-    address: "习友路与科学大道交口东北角",
-    distance: 4.0,
-    type: "学校周边",
-    category: "campus",
-    area: "蜀山区",
-    density: 4,
-    mxCount: "2家",
+    name: "保利·香槟国际", address: "习友路与科学大道交口东北角", distance: 4.0, type: "学校周边",
+    category: "campus", area: "蜀山区", density: 4, mxCount: "2家", level: "high", advantage: "医学院周边，学生多",
     reason: "坐拥柳树塘地铁枢纽，被安徽医科大学等学府环绕，学生党扎堆，消费需求旺盛。周边蜜雪冰城都在校外主干道上，社区和校园内部铺位依然稀缺。",
-    level: "high",
-    advantage: "医学院周边，学生多",
     detail: {
       fullReason: "坐拥柳树塘地铁枢纽，保利·香槟国际不仅是高颜值品质社区，更被安徽医科大学等学府环绕，学生党扎堆，消费需求旺盛。周边3公里虽有2家蜜雪冰城，但都在校外主干道上，真正深入社区和校园内部的铺位依然稀缺，精准卡位学生日常打卡路线，生意自然红火。"
     }
   },
   {
-    name: "经开大学城",
-    address: "蜀山区石柱路(大学城北地铁站D口步行170米)",
-    distance: 4.5,
-    type: "学校周边",
-    category: "city",
-    area: "蜀山区",
-    density: 4,
-    score: 4.4,
-    mxCount: "较少",
-    reason: "七所高校环绕，学生大军日常刷街，消费需求蹭蹭上涨。翠微路一带小吃扎堆，烟火气十足，地铁直达。潜力无限的校园经济区。",
-    level: "medium",
+    name: "经开大学城", address: "蜀山区石柱路(大学城北地铁站D口步行170米)", distance: 4.5, type: "学校周边",
+    category: "city", area: "蜀山区", density: 4, score: 4.4, mxCount: "较少", level: "medium",
     advantage: "七所高校聚集，学生消费刚需",
+    reason: "七所高校环绕，学生大军日常刷街，消费需求蹭蹭上涨。翠微路一带小吃扎堆，烟火气十足，地铁直达。潜力无限的校园经济区。",
     detail: {
       fullReason: "这里是经开大学城的心脏地带，七所高校环绕，学生大军日常刷街，消费需求蹭蹭上涨。翠微路一带小吃扎堆，烟火气十足，加上地铁直达，出行超方便。虽然蜜雪冰城才起步，但整个片区就像一块未雕琢的璞玉，潜力无限，谁先发力，谁就可能拿下这片校园经济的头块拼图。",
       warning: "主要集中在大学城北部，辐射范围有限"
     }
   },
   {
-    name: "尚泽大都会",
-    address: "经开区莲花路与石门路交叉口",
-    distance: 5.0,
-    type: "居民区",
-    category: "gold",
-    area: "经开区",
-    density: 4,
-    mxCount: "1家",
+    name: "尚泽大都会", address: "经开区莲花路与石门路交叉口", distance: 5.0, type: "居民区",
+    category: "gold", area: "经开区", density: 4, mxCount: "1家", level: "high", advantage: "新建社区，消费潜力大",
     reason: "经开区热门居住地标，24小时不打烊的生活氛围超有活力！年轻人扎堆，吃喝玩乐配套齐全。周边3公里内只有1家蜜雪冰城，机会难得。",
-    level: "high",
-    advantage: "新建社区，消费潜力大",
     detail: {
       fullReason: "尚泽大都会可是经开区的热门居住地标，24小时不打烊的生活氛围超有活力！这里年轻人扎堆，吃喝玩乐配套齐全，日常消费力杠杠的。最棒的是，周边3公里内只有1家蜜雪冰城，机会难得，早点布局绝对能抢占先机！"
     }
   },
   {
-    name: "大学城·簋街美食城",
-    address: "经开区大学城丹霞路与百鸟路交口",
-    distance: 5.5,
-    type: "美食街",
-    category: "city",
-    area: "经开区",
-    density: 5,
-    score: 4.8,
-    mxCount: "2家",
-    reason: "七所高校环绕，学生党扎堆，从清晨第一碗热干面到深夜小龙虾。口味重、价格亲民是常态。庞大的学生刚需和高频消费让每寸空间都藏着机会。",
-    level: "medium",
+    name: "大学城·簋街美食城", address: "经开区大学城丹霞路与百鸟路交口", distance: 5.5, type: "美食街",
+    category: "city", area: "经开区", density: 5, score: 4.8, mxCount: "2家", level: "medium",
     advantage: "学生群体庞大，消费频次高",
+    reason: "七所高校环绕，学生党扎堆，从清晨第一碗热干面到深夜小龙虾。口味重、价格亲民是常态。庞大的学生刚需和高频消费让每寸空间都藏着机会。",
     detail: {
       fullReason: "大学城簋街堪称青春味蕾的狂欢地，七所高校环绕，学生党扎堆，烟火气直接拉满！从清晨第一碗热干面到深夜小龙虾续摊，这条街从不打烊。麻辣烫、烧烤、奶茶全线覆盖，口味重、价格亲民是常态。虽然蜜雪冰城已占两席，但庞大的学生刚需和高频次消费，让每寸空间都藏着生意机会。",
-      hours: "07:00-22:00",
-      avgSpend: "38元",
+      hours: "07:00-22:00", avgSpend: "38元",
       userReview: "学生们都说这里好吃不贵，品种多，就是周末人太多",
       warning: "已有2家蜜雪冰城（七日潮街店、工大北门店）"
     }
   },
   {
-    name: "香樟大道",
-    address: "蜀山区香樟大道",
-    distance: 5.5,
-    type: "商圈",
-    category: "commercial",
-    area: "蜀山区",
-    density: 3,
-    mxCount: "3家",
-    reason: "一路绿意盎然，沿街店铺林立，生活气息满满。已有3家蜜雪冰城但大多扎堆在主干道两端，中间路段其实还有不少空白区域。",
-    level: "medium",
+    name: "香樟大道", address: "蜀山区香樟大道", distance: 5.5, type: "商圈",
+    category: "commercial", area: "蜀山区", density: 3, mxCount: "3家", level: "medium",
     advantage: "沿街商铺密集，生活气息浓",
+    reason: "一路绿意盎然，沿街店铺林立，生活气息满满。已有3家蜜雪冰城但大多扎堆在主干道两端，中间路段其实还有不少空白区域。",
     detail: {
       fullReason: "香樟大道一路绿意盎然，沿街店铺林立，生活气息满满，尤其傍晚时分，散步逛街的人越来越多，氛围特别好。虽然周边3公里已经开了3家蜜雪冰城，但它们大多扎堆在主干道两端，中间路段其实还有不少空白区域，只要选个视野开阔、人流集中的位置，新店照样能火速出圈。",
       warning: "已有3家蜜雪冰城，需避开密集区域"
     }
   },
   {
-    name: "十里庙",
-    address: "蜀山区十里庙",
-    distance: 6.0,
-    type: "商圈",
-    category: "commercial",
-    area: "蜀山区",
-    density: 4,
-    mxCount: "5家",
-    reason: "合肥南部潮流地标，吃喝玩乐一应俱全，人气爆棚。但周边已有5家蜜雪冰城，密度较高，需精确定位避开现有门店。",
-    level: "low",
+    name: "十里庙", address: "蜀山区十里庙", distance: 6.0, type: "商圈",
+    category: "commercial", area: "蜀山区", density: 4, mxCount: "5家", level: "low",
     advantage: "商圈成熟，但竞争激烈",
+    reason: "合肥南部潮流地标，吃喝玩乐一应俱全，人气爆棚。但周边已有5家蜜雪冰城，密度较高，需精确定位避开现有门店。",
     detail: {
       fullReason: "十里庙商圈一直是合肥南部的潮流地标，吃喝玩乐一应俱全，人气爆棚。虽然周边3公里已经有5家蜜雪冰城，但大多集中在商场和主干道，如果能在社区入口或地铁沿线挑个隐蔽又方便的位置开店，照样能抢到一波忠实客流。",
       warning: "周边蜜雪冰城密度较高，需要精确定位避开现有门店"
     }
   },
   {
-    name: "东海花园",
-    address: "芙蓉路339号",
-    distance: 6.5,
-    type: "居民区",
-    category: "gold",
-    area: "蜀山区",
-    density: 3,
-    mxCount: "1家",
+    name: "东海花园", address: "芙蓉路339号", distance: 6.5, type: "居民区",
+    category: "gold", area: "蜀山区", density: 3, mxCount: "1家", level: "high", advantage: "成熟社区，回头客多",
     reason: "老牌又有人气的成熟社区，烟火气十足。周边三公里只有一家蜜雪冰城且歇业已久，市场空档明显，趁早入驻稳拿口碑。",
-    level: "high",
-    advantage: "成熟社区，回头客多",
     detail: {
       fullReason: "东海花园是个老牌又有人气的成熟社区，街坊邻里常来常往，烟火气十足。周边三公里只有一家蜜雪冰城，还歇业了好一阵，现在重新开业也不过刚起步，市场空档正明显，趁早入驻稳稳拿下本地口碑。"
     }
   },
   {
-    name: "信旺·华府骏苑",
-    address: "南七街道潜山路与望江路交叉口",
-    distance: 7.0,
-    type: "居民区",
-    category: "gold",
-    area: "蜀山区",
-    density: 4,
-    mxCount: "2家",
+    name: "信旺·华府骏苑", address: "南七街道潜山路与望江路交叉口", distance: 7.0, type: "居民区",
+    category: "gold", area: "蜀山区", density: 4, mxCount: "2家", level: "high", advantage: "配套完善，生活便利",
     reason: "小区人气爆棚，生活气息拉满，交通顺手、医疗靠谱、教育在线。社区里蜜雪冰城基本没影儿，奶茶市场蓝海地带。",
-    level: "high",
-    advantage: "配套完善，生活便利",
     detail: {
       fullReason: "这片小区人气爆棚，生活气息拉满，交通顺手、医疗靠谱、教育也在线，妥妥的宜居高地。周边3公里才藏着两家蜜雪冰城，一家还在南七主干道上，社区里基本没影儿，简直是奶茶市场的蓝海地带，随便选个角落都能圈住一大波邻居客流。"
     }
   },
   {
-    name: "天鹅湖万达广场",
-    address: "蜀山区南二环路3818号",
-    distance: 7.5,
-    type: "商业综合体",
-    category: "city",
-    area: "蜀山区",
-    density: 5,
-    score: 4.8,
-    mxCount: "2家",
-    reason: "蜀山超有feel的潮流地标，盒马鲜生坐镇，餐饮从网红爆款到经典连锁全都有。金街美食街区热闹非凡。虽有2家蜜雪冰城，但客流太旺。",
-    level: "medium",
+    name: "天鹅湖万达广场", address: "蜀山区南二环路3818号", distance: 7.5, type: "商业综合体",
+    category: "city", area: "蜀山区", density: 5, score: 4.8, mxCount: "2家", level: "medium",
     advantage: "商场体量大，品牌影响力强",
+    reason: "蜀山超有feel的潮流地标，盒马鲜生坐镇，餐饮从网红爆款到经典连锁全都有。金街美食街区热闹非凡。虽有2家蜜雪冰城，但客流太旺。",
     detail: {
       fullReason: "这里是蜀山超有feel的潮流地标，盒马鲜生坐镇，吃货天堂名副其实！餐饮从网红爆款到经典连锁全都有，边逛边吃根本停不下来。金街美食街区更是热闹非凡，学生党、白领族天天打卡。虽然蜜雪冰城开了两家有点扎堆，但整体客流太旺了，随便找个空档冲一波照样能火！",
       hours: "09:30-22:00",
@@ -627,68 +439,36 @@ const locations = [
     }
   },
   {
-    name: "永和家园",
-    address: "皖水路424号(南岗地铁站B口步行430米)",
-    distance: 7.5,
-    type: "居民区",
-    category: "gold",
-    area: "蜀山区",
-    density: 3,
-    mxCount: "2家",
+    name: "永和家园", address: "皖水路424号(南岗地铁站B口步行430米)", distance: 7.5, type: "居民区",
+    category: "gold", area: "蜀山区", density: 3, mxCount: "2家", level: "high", advantage: "地铁直达，通勤人群多",
     reason: "就在南岗地铁口边上，通勤族和学生党天天路过，人气一直很旺。周边三公里才两家蜜雪冰城且离得远，开起来绝对是片区顶流。",
-    level: "high",
-    advantage: "地铁直达，通勤人群多",
     detail: {
       fullReason: "永和家园就在南岗地铁口边上，下地铁走几分钟就到，通勤族和学生党天天路过，人气一直很旺。周边三公里才两家蜜雪冰城，还都离得老远，这家要是开起来，绝对是片区里的顶流打卡点。"
     }
   },
   {
-    name: "安粮城市广场",
-    address: "合作化南路16号",
-    distance: 8.0,
-    type: "商业综合体",
-    category: "gold",
-    area: "蜀山区",
-    density: 5,
-    mxCount: "2家",
+    name: "安粮城市广场", address: "合作化南路16号", distance: 8.0, type: "商业综合体",
+    category: "gold", area: "蜀山区", density: 5, mxCount: "2家", level: "high", advantage: "全天候人流，商业氛围浓",
     reason: "全天候开放，吃喝逛买一站式搞定，周末和晚饭后人潮涌动。周边三公里才两家蜜雪冰城，竞争几乎为零，奶茶创业者理想战场。",
-    level: "high",
-    advantage: "全天候人流，商业氛围浓",
     detail: {
       fullReason: "安粮城市广场全天候开放，吃喝逛买一站式搞定，周末和晚饭后人潮涌动，热闹非凡。周边三公里才两家蜜雪冰城，竞争几乎为零，简直是奶茶创业者的理想战场，随便找个角落都能轻松圈粉。"
     }
   },
   {
-    name: "三孝口",
-    address: "庐阳区长江中路343号(三孝口地铁站E口旁)",
-    distance: 10.0,
-    type: "商圈",
-    category: "city",
-    area: "庐阳区",
-    density: 5,
-    score: 4.3,
-    mxCount: "1家",
-    reason: "合肥老牌热闹地，天桥一过就是城隍庙和女人街，烟火气十足。地铁2号线、5号线直达，写字楼林立。蜜雪冰城还没扎堆，正是抢先布局的好时机！",
-    level: "high",
+    name: "三孝口", address: "庐阳区长江中路343号(三孝口地铁站E口旁)", distance: 10.0, type: "商圈",
+    category: "city", area: "庐阳区", density: 5, score: 4.3, mxCount: "1家", level: "high",
     advantage: "地铁直达，历史文化底蕴深",
+    reason: "合肥老牌热闹地，天桥一过就是城隍庙和女人街，烟火气十足。地铁2号线、5号线直达，写字楼林立。蜜雪冰城还没扎堆，正是抢先布局的好时机！",
     detail: {
       fullReason: "三孝口可是合肥的老牌热闹地儿，天桥一过就是城隍庙和女人街，烟火气十足，吃喝玩乐样样不缺。这里背靠李鸿章故居，面朝长江路商业带，地铁2号线、5号线直接通到门口，早晚高峰也能轻松进出。周边写字楼林立，上班族、游客来回穿梭不断，人气一直在线。最棒的是，这片区域虽然热闹，但蜜雪冰城还没扎堆开起来，正是抢先布局的好时机！",
       userReview: "大家觉得这里是合肥最有历史韵味的地方之一，交通便利，就是高峰期人多车多"
     }
   },
   {
-    name: "罍街",
-    address: "包河区水阳江路与宁国路交口以北",
-    distance: 11.5,
-    type: "美食街",
-    category: "city",
-    area: "包河区",
-    density: 5,
-    score: 4.8,
-    mxCount: "较少",
-    reason: "合肥夜生活灵魂地标，复古又时髦，音乐喷泉、民俗手信、美食轮番上阵，年轻人扎堆打卡。现在竞争不大，正是抢占先机的最佳窗口期。",
-    level: "high",
+    name: "罍街", address: "包河区水阳江路与宁国路交口以北", distance: 11.5, type: "美食街",
+    category: "city", area: "包河区", density: 5, score: 4.8, mxCount: "较少", level: "high",
     advantage: "文艺氛围浓厚，夜间经济强",
+    reason: "合肥夜生活灵魂地标，复古又时髦，音乐喷泉、民俗手信、美食轮番上阵，年轻人扎堆打卡。现在竞争不大，正是抢占先机的最佳窗口期。",
     detail: {
       fullReason: "罍街绝对是合肥夜生活的灵魂地标，青砖灰瓦配上潮流涂鸦，复古又时髦，随手一拍就是大片感。整条街从早嗨到晚，音乐喷泉、民俗手信、各地美食轮番上阵，年轻人扎堆打卡，氛围直接拉满。别看它现在不算特别繁华，但正因如此，才是抢占先机的最佳窗口期，早点进来，热度刚刚好。",
       hours: "08:00-23:00",
@@ -696,18 +476,10 @@ const locations = [
     }
   },
   {
-    name: "淮河路步行街",
-    address: "庐阳区北含山路(四牌楼地铁站出入口步行460米)",
-    distance: 11.5,
-    type: "步行街",
-    category: "city",
-    area: "庐阳区",
-    density: 5,
-    score: 4.9,
-    mxCount: "中等",
-    reason: "合肥潮流心脏，臭豆腐爆浆、裸眼3D大屏，老城烟火遇上新潮玩法。24小时营业，地铁直达。某些角落还是蓝海市场。",
-    level: "medium",
+    name: "淮河路步行街", address: "庐阳区北含山路(四牌楼地铁站出入口步行460米)", distance: 11.5, type: "步行街",
+    category: "city", area: "庐阳区", density: 5, score: 4.9, mxCount: "中等", level: "medium",
     advantage: "24小时营业，老字号商圈",
+    reason: "合肥潮流心脏，臭豆腐爆浆、裸眼3D大屏，老城烟火遇上新潮玩法。24小时营业，地铁直达。某些角落还是蓝海市场。",
     detail: {
       fullReason: "淮河路步行街可是合肥的潮流心脏，臭豆腐爆浆炸裂味蕾，裸眼3D大屏炫酷吸睛，老城烟火遇上新潮玩法，每天都有新鲜事。全天候开放，地铁直达超方便，白天逛街晚上蹦迪都贼带劲。小吃一条街热火朝天，奶茶店一家挨着一家，不过仔细瞅瞅，某些角落还是蓝海市场，机会就在眼前！",
       hours: "24小时营业",
@@ -715,18 +487,10 @@ const locations = [
     }
   },
   {
-    name: "包河万象汇",
-    address: "包河区包河大道与龙川路交叉口东北角",
-    distance: 13.0,
-    type: "商业综合体",
-    category: "city",
-    area: "包河区",
-    density: 5,
-    score: 4.9,
-    mxCount: "较少",
-    reason: "城市活力心脏，大牌云集、宠物友好，盒马超市和电影院全配齐。商场干净敞亮，蜜雪冰城还没扎堆，正是抢滩入驻的好时候。",
-    level: "high",
+    name: "包河万象汇", address: "包河区包河大道与龙川路交叉口东北角", distance: 13.0, type: "商业综合体",
+    category: "city", area: "包河区", density: 5, score: 4.9, mxCount: "较少", level: "high",
     advantage: "新兴大型商场，环境一流",
+    reason: "城市活力心脏，大牌云集、宠物友好，盒马超市和电影院全配齐。商场干净敞亮，蜜雪冰城还没扎堆，正是抢滩入驻的好时候。",
     detail: {
       fullReason: "包河万象汇简直是城市里的活力心脏，大牌云集、宠物友好，盒马超市和电影院全配齐，吃喝玩乐一站式搞定。负一楼的小吃档口烟火气十足，新加坡风味餐厅也藏得够惊喜，年轻人都爱往这儿扎。商场干净敞亮，空气里都是种让人放松的香氛感，关键是蜜雪冰城还没扎堆，正是抢滩入驻的好时候。",
       hours: "10:00-22:00",
@@ -734,33 +498,17 @@ const locations = [
     }
   },
   {
-    name: "绿地滨湖国际花都",
-    address: "宿松路与慈光路交汇处往南200米",
-    distance: 16.0,
-    type: "学校周边",
-    category: "campus",
-    area: "包河区",
-    density: 5,
-    mxCount: "2家",
+    name: "绿地滨湖国际花都", address: "宿松路与慈光路交汇处往南200米", distance: 16.0, type: "学校周边",
+    category: "campus", area: "包河区", density: 5, mxCount: "2家", level: "high", advantage: "优质学区，家庭消费强",
     reason: "周边名校云集（合肥八中滨湖校区、师范附小滨湖校区），家长接送娃的高频场景直接拉满人流。社区内部和学校门口机会多。",
-    level: "high",
-    advantage: "优质学区，家庭消费强",
     detail: {
       fullReason: "绿地滨湖国际花都不仅地段够硬，周边名校云集，像合肥八中滨湖校区、师范附小滨湖校区都在附近，家长接送娃的高频场景直接拉满人流。孩子上学、放学时段，加上各类校园活动，整条街区人气爆棚。虽然周边3公里有2家蜜雪冰城，但主要集中在主干道，社区内部和学校门口反而机会多多，扎根这里，轻松锁定亲子消费圈。"
     }
   },
   {
-    name: "滨湖新区",
-    address: "包河区西藏路与长沙路交口",
-    distance: 18.0,
-    type: "新兴商圈",
-    category: "city",
-    area: "包河区",
-    density: 3,
-    mxCount: "较少",
+    name: "滨湖新区", address: "包河区西藏路与长沙路交口", distance: 18.0, type: "新兴商圈",
+    category: "city", area: "包河区", density: 3, mxCount: "较少", level: "medium", advantage: "新区发展迅速，长线布局佳",
     reason: "合肥重点打造的城市新名片，商务楼宇拔地而起，高端住宅陆续入住。眼下蜜雪冰城不多，越早扎根越容易占据C位，妥妥的潜力股！",
-    level: "medium",
-    advantage: "新区发展迅速，长线布局佳",
     detail: {
       fullReason: "滨湖新区作为合肥重点打造的城市新名片，商务楼宇拔地而起，高端住宅陆续入住，人气正在快速升温。这里办公族和新市民扎堆，生活配套加速落地，像方圆荟这类商场刚开业不久，烟火气渐浓。眼下蜜雪冰城虽只有几家，但片区还在成长期，越早扎根越容易占据C位，妥妥的潜力股！",
       warning: "目前人流规模不如主城区，需要等待区域成熟"
@@ -768,147 +516,118 @@ const locations = [
   }
 ];
 
+// Amap search
+function searchAmap() {
+  const keyword = document.getElementById('searchInput').value.trim();
+  if (!keyword) { document.getElementById('searchInput').focus(); return; }
+  window.open('https://uri.amap.com/search?keyword=' + encodeURIComponent(keyword) + '&city=合肥&view=map', '_blank');
+}
+function openAmap(address, name) {
+  const keyword = name + ' ' + address + ' 合肥';
+  window.open('https://uri.amap.com/search?keyword=' + encodeURIComponent(keyword) + '&city=合肥&view=map', '_blank');
+}
+
 function getRankClass(i) {
   if (i === 0) return 'rank-gold';
   if (i === 1) return 'rank-silver';
   if (i === 2) return 'rank-bronze';
   return 'rank-normal';
 }
-function getLevelText(level) {
-  if (level === 'high') return '强烈推荐 🔥';
-  if (level === 'medium') return '值得考虑 👀';
-  return '谨慎评估 ⚠️';
-}
-function getLevelClass(level) {
-  if (level === 'high') return 'level-high';
-  if (level === 'medium') return 'level-medium';
-  return 'level-low';
-}
-function getStars(density) {
-  return '★'.repeat(density) + '☆'.repeat(5 - density);
-}
+function getLevelText(l) { return l === 'high' ? '强烈推荐' : l === 'medium' ? '值得考虑' : '谨慎评估'; }
+function getLevelClass(l) { return l === 'high' ? 'level-high' : l === 'medium' ? 'level-medium' : 'level-low'; }
+function getStars(d) { return '★'.repeat(d) + '☆'.repeat(5 - d); }
 
 function openModal(index) {
   const loc = locations[index];
   const d = loc.detail || {};
-  const overlay = document.getElementById('modalOverlay');
-
   document.getElementById('modalTitle').textContent = loc.name;
-  document.getElementById('modalAddress').innerHTML = '📍 ' + loc.address;
+  document.getElementById('modalAddress').textContent = '📍 ' + loc.address;
 
-  let metaHtml = `<span class="modal-meta-item">${loc.type}</span>
-    <span class="modal-meta-item">~${loc.distance}km</span>
-    <span class="modal-meta-item">${loc.area}</span>
-    <span class="modal-meta-item">🧋 蜜雪 ${loc.mxCount}</span>`;
-  if (loc.score) metaHtml += `<span class="modal-meta-item">⭐ ${loc.score}分</span>`;
-  if (d.hours) metaHtml += `<span class="modal-meta-item">🕐 ${d.hours}</span>`;
-  if (d.avgSpend) metaHtml += `<span class="modal-meta-item">💰 人均${d.avgSpend}</span>`;
-  document.getElementById('modalMeta').innerHTML = metaHtml;
+  let meta = `<span class="modal-meta-item">${loc.type}</span><span class="modal-meta-item">~${loc.distance}km</span><span class="modal-meta-item">${loc.area}</span><span class="modal-meta-item">蜜雪 ${loc.mxCount}</span>`;
+  if (loc.score) meta += `<span class="modal-meta-item">${loc.score}分</span>`;
+  if (d.hours) meta += `<span class="modal-meta-item">${d.hours}</span>`;
+  if (d.avgSpend) meta += `<span class="modal-meta-item">人均${d.avgSpend}</span>`;
+  document.getElementById('modalMeta').innerHTML = meta;
 
-  let bodyHtml = '';
+  let body = '';
+
+  // Map button
+  body += `<button class="modal-map-btn" onclick="openAmap('${loc.address.replace(/'/g,"\\'")}','${loc.name.replace(/'/g,"\\'")}')">📍 在高德地图中查看此位置</button>`;
 
   // Info grid
-  bodyHtml += `<div class="detail-section">
-    <div class="detail-info-grid">
-      <div class="detail-info-item"><div class="info-label">距我距离</div><div class="info-value">~${loc.distance}km</div></div>
-      <div class="detail-info-item"><div class="info-label">人口密度</div><div class="info-value" style="font-size:14px;letter-spacing:2px;background:none;-webkit-text-fill-color:#f59e0b">${getStars(loc.density)}</div></div>
-      <div class="detail-info-item"><div class="info-label">周边蜜雪冰城</div><div class="info-value">${loc.mxCount}</div></div>
-      <div class="detail-info-item"><div class="info-label">推荐等级</div><div class="detail-level-badge ${getLevelClass(loc.level)}" style="font-size:13px;padding:4px 12px;display:inline-flex">${getLevelText(loc.level)}</div></div>
-    </div>
-  </div>`;
+  body += `<div class="detail-section"><div class="detail-info-grid">
+    <div class="detail-info-item"><div class="info-label">距我距离</div><div class="info-value">~${loc.distance}km</div></div>
+    <div class="detail-info-item"><div class="info-label">人口密度</div><div class="info-value" style="font-size:14px;color:#e6a817">${getStars(loc.density)}</div></div>
+    <div class="detail-info-item"><div class="info-label">周边蜜雪冰城</div><div class="info-value">${loc.mxCount}</div></div>
+    <div class="detail-info-item"><div class="info-label">推荐等级</div><div><span class="card-level ${getLevelClass(loc.level)}">${getLevelText(loc.level)}</span></div></div>
+  </div></div>`;
 
-  // Full reason
-  bodyHtml += `<div class="detail-section">
-    <div class="detail-section-title">📋 详细分析</div>
-    <div class="detail-text">${d.fullReason || loc.reason}</div>
-  </div>`;
+  body += `<div class="detail-section"><div class="detail-section-title">详细分析</div><div class="detail-text">${d.fullReason || loc.reason}</div></div>`;
 
   if (d.extraReason) {
-    bodyHtml += `<div class="detail-section">
-      <div class="detail-section-title">💡 补充说明</div>
-      <div class="detail-text">${d.extraReason}</div>
-    </div>`;
+    body += `<div class="detail-section"><div class="detail-section-title">补充说明</div><div class="detail-text">${d.extraReason}</div></div>`;
   }
 
-  // Nearby stores
-  if (d.nearbyStores && d.nearbyStores.length > 0) {
-    bodyHtml += `<div class="detail-section">
-      <div class="detail-section-title">🏪 周边蜜雪冰城门店</div>
-      <ul class="detail-store-list">`;
+  if (d.nearbyStores && d.nearbyStores.length) {
+    body += `<div class="detail-section"><div class="detail-section-title">周边蜜雪冰城门店</div><ul class="detail-store-list">`;
     d.nearbyStores.forEach(s => {
-      bodyHtml += `<li>
-        <span class="store-name">${s.name}</span>
-        <span class="store-info">${s.distance} · ${s.rating}${s.avgSpend ? ' · 人均' + s.avgSpend : ''}</span>
-      </li>`;
+      body += `<li><span class="store-name">${s.name}</span><span class="store-info">${s.distance} · ${s.rating}${s.avgSpend ? ' · 人均' + s.avgSpend : ''}</span></li>`;
     });
-    bodyHtml += `</ul></div>`;
+    body += `</ul></div>`;
   }
 
-  // User review
   if (d.userReview) {
-    bodyHtml += `<div class="detail-section">
-      <div class="detail-section-title">💬 用户评价</div>
-      <div class="detail-review"><p>${d.userReview}</p></div>
-    </div>`;
+    body += `<div class="detail-section"><div class="detail-section-title">用户评价</div><div class="detail-review">"${d.userReview}"</div></div>`;
   }
 
-  // Warning
   if (d.warning) {
-    bodyHtml += `<div class="detail-section">
-      <div class="detail-warning">⚠️ <span>${d.warning}</span></div>
-    </div>`;
+    body += `<div class="detail-section"><div class="detail-warning">⚠️ <span>${d.warning}</span></div></div>`;
   }
 
-  // Core advantage
-  bodyHtml += `<div class="detail-section">
-    <div class="detail-section-title">🎯 核心优势</div>
-    <div class="detail-text" style="font-weight:600;color:#8b5cf6">${loc.advantage}</div>
-  </div>`;
+  body += `<div class="detail-section"><div class="detail-section-title">核心优势</div><div class="detail-text" style="font-weight:700;color:#4a90d9">${loc.advantage}</div></div>`;
 
-  document.getElementById('modalBody').innerHTML = bodyHtml;
-  overlay.classList.add('active');
+  document.getElementById('modalBody').innerHTML = body;
+  document.getElementById('modalOverlay').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 
 function closeModal(e) {
-  if (e && e.target && e.target !== document.getElementById('modalOverlay')) return;
+  if (e && e.target !== document.getElementById('modalOverlay')) return;
   document.getElementById('modalOverlay').classList.remove('active');
   document.body.style.overflow = '';
 }
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeModal();
-});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 function renderCards(filter) {
   const container = document.getElementById('cardContainer');
   const filtered = filter === 'all' ? locations : locations.filter(l => l.category === filter);
-
   let html = '';
   filtered.forEach((loc, i) => {
-    const globalIndex = locations.indexOf(loc);
-    const delay = i * 0.06;
-    html += `
-    <div class="card" data-category="${loc.category}" style="animation-delay:${delay}s" onclick="openModal(${globalIndex})">
-      ${loc.notRecommend ? '<div class="badge-not-rec">⛔ 不推荐</div>' : ''}
-      <div class="card-top">
+    const gi = locations.indexOf(loc);
+    html += `<div class="card" data-category="${loc.category}">
+      ${loc.notRecommend ? '<div class="badge-not-rec">不推荐</div>' : ''}
+      <div class="card-top" onclick="openModal(${gi})">
         <div class="card-rank ${getRankClass(i)}">${i + 1}</div>
         <div class="card-name">${loc.name}</div>
         <div class="card-distance">~${loc.distance}km</div>
       </div>
-      <div class="card-address">${loc.address}</div>
-      <div class="card-tags">
+      <div class="card-address" onclick="openModal(${gi})">${loc.address}</div>
+      <div class="card-tags" onclick="openModal(${gi})">
         <span class="tag tag-type">${loc.type}</span>
         <span class="tag tag-density">人口密度 ${getStars(loc.density)}</span>
-        <span class="tag tag-mx">🧋 蜜雪 ${loc.mxCount}</span>
-        ${loc.score ? `<span class="tag tag-score">⭐ ${loc.score}</span>` : ''}
+        <span class="tag tag-mx">蜜雪 ${loc.mxCount}</span>
+        ${loc.score ? `<span class="tag tag-score">${loc.score}分</span>` : ''}
         ${loc.notRecommend ? '<span class="tag tag-warning">竞争激烈</span>' : ''}
       </div>
-      <div class="card-reason">${loc.reason}</div>
-      <div class="card-footer">
+      <div class="card-reason" onclick="openModal(${gi})">${loc.reason}</div>
+      <div class="card-footer" onclick="openModal(${gi})">
         <span class="card-stars">${getStars(loc.density)}</span>
         <span class="card-level ${getLevelClass(loc.level)}">${getLevelText(loc.level)}</span>
       </div>
-      <div class="card-detail-hint">👆 点击查看详细分析</div>
+      <div class="card-actions">
+        <button class="btn-detail" onclick="openModal(${gi})">查看详情</button>
+        <button class="btn-map" onclick="event.stopPropagation();openAmap('${loc.address.replace(/'/g,"\\'")}','${loc.name.replace(/'/g,"\\'")}')">📍 高德地图</button>
+      </div>
     </div>`;
   });
   container.innerHTML = `<div class="card-grid">${html}</div>`;
@@ -918,13 +637,12 @@ function renderTable() {
   const tbody = document.getElementById('tableBody');
   let html = '';
   locations.forEach((loc, i) => {
-    html += `<tr style="cursor:pointer" onclick="openModal(${i})">
-      <td style="font-weight:900;color:${i < 3 ? '#c44eff' : '#999'}">${i + 1}</td>
-      <td style="color:#333;font-weight:700">${loc.name}</td>
-      <td><span style="color:#00bfa5;font-weight:700">~${loc.distance}km</span></td>
-      <td>${loc.type}</td>
-      <td>${loc.area}</td>
-      <td style="color:#f59e0b;letter-spacing:1px">${getStars(loc.density)}</td>
+    html += `<tr onclick="openModal(${i})">
+      <td style="font-weight:800;color:${i < 3 ? '#4a90d9' : '#999'}">${i + 1}</td>
+      <td style="color:#1a1a1a;font-weight:700">${loc.name}</td>
+      <td><span style="color:#2e7d32;font-weight:600">~${loc.distance}km</span></td>
+      <td>${loc.type}</td><td>${loc.area}</td>
+      <td style="color:#e6a817">${getStars(loc.density)}</td>
       <td>${loc.mxCount}</td>
       <td><span class="card-level ${getLevelClass(loc.level)}" style="font-size:11px">${getLevelText(loc.level)}</span></td>
       <td>${loc.advantage}</td>
@@ -934,7 +652,7 @@ function renderTable() {
 }
 
 function filterCards(filter) {
-  document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   event.target.classList.add('active');
   renderCards(filter);
 }
